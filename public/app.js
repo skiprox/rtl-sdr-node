@@ -3,9 +3,7 @@
 const io = require('socket.io-client');
 const socket = io.connect();
 
-console.log('what the fuck bitch!!!!');
-
-class whatever {
+class App {
 	constructor() {
 		this.canvas;
 		this.ctx;
@@ -26,10 +24,8 @@ class whatever {
 	}
 	addListeners() {
 		socket.on('data', (data) => {
-			//console.log(data.buffer);
 			var view = new Int8Array(data.buffer);
 			//var view = new Int32Array(data.buffer);
-			//console.log(view);
 			this.drawCanvas(view);
 		});
 	}
@@ -43,11 +39,10 @@ class whatever {
 		this.ctx.strokeStyle = '#52FF3E';
 		this.ctx.moveTo(0, height/2);
 		for (let i = 0; i < data.length; i++) {
-			console.log(data[i]);
 		    this.ctx.lineTo((width/data.length) * i, (height/2 + data[i] * height/280));
 		}
 		this.ctx.stroke();
 	}
 }
 
-new whatever;
+const app = new App();

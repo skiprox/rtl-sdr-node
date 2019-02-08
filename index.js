@@ -47,7 +47,6 @@ const deviceCount = rtlsdr.get_device_count();
 
 class Radio {
 	constructor() {
-		console.log('we start');
 		server.listen(8080);
 		app.use(express.static('public'));
 		app.get('/', function (req, res) {
@@ -139,12 +138,9 @@ class Radio {
 	addIO() {
 		io.on('connection', (socket) => {
 			this.socket = socket;
+			// Add listeners now that this.socket has been defined
 			this.addListeners();
-			console.log('we connect');
-			socket.emit('news', { hello: 'world' });
-			socket.on('my other event', function (data) {
-				console.log(data);
-			});
+			console.log('we connected');
 		});
 	}
 	onData(data, size) {
